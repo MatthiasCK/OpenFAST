@@ -387,6 +387,9 @@ SUBROUTINE ScaleTurbulence(p, InitInp, Interval, InitOut, MiscVars, ErrStat, Err
             ! roughly the point in the center of the grid
          iz = (p%nz + 1) / 2 ! integer division
          iy = (p%ny + 1) / 2 ! integer division
+
+         vSum  = 0.0 ! important to set zero when using multiple HAWC wind files (e.g. in FAST.Farm)
+         vSum2 = 0.0 ! important to set zero when using multiple HAWC wind files (e.g. in FAST.Farm)
          
          DO ix=1,p%nx 
             v = p%HAWCData(iz,iy,ix,:)

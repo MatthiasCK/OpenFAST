@@ -923,8 +923,11 @@ subroutine AWAE_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitO
 
    ! --- Vtk Outputs
    call GetPath( p%OutFileRoot, rootDir, baseName ) 
-   OutFileVTKDir    = trim(rootDir) // 'vtk_ff'  ! Directory for VTK outputs
-   p%OutFileVTKRoot = trim(rootDir) // 'vtk_ff' // PathSep // trim(baseName) ! Basename for VTK files
+!   OutFileVTKDir    = trim(rootDir) // 'vtk_ff'  ! Directory for VTK outputs
+   OutFileVTKDir    = trim(rootDir)  ! MK: Remove subDir to make it compatible with condor
+!   p%OutFileVTKRoot = trim(rootDir) // 'vtk_ff' // PathSep // trim(baseName) ! Basename for VTK files
+   p%OutFileVTKRoot = trim(rootDir) // PathSep // trim(baseName) ! MK: Remove subDir to make it compatible with condor
+   
    p%VTK_tWidth = CEILING( log10( real(p%NumDT, ReKi)/real(p%WrDisSkp1, ReKi) ) + 1) ! Length for time stamp
    if (p%WrDisWind .or. p%NOutDisWindXY>0 .or. p%NOutDisWindYZ>0 .or. p%NOutDisWindXZ>0) then
       call MKDIR(OutFileVTKDir) ! creating output directory
